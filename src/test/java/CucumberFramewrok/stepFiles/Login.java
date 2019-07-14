@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import cucumber.api.java.After;
@@ -12,6 +13,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 
 public class Login {
 	
@@ -28,7 +30,6 @@ public class Login {
 	
 	@After
 	public void tearDown() throws InterruptedException{
-		
 		Thread.sleep(3000);
 		this.driver.manage().deleteAllCookies();
 		this.driver.quit();
@@ -49,22 +50,27 @@ public class Login {
 
 	@And("^User enters a valid username$")
 	public void user_enters_a_valid_username() throws Throwable {
-		System.out.println("Method3");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//input[@id='email']")).sendKeys("some email");
 	}
 
 	@And("^User enters a valid password$")
 	public void user_enters_a_valid_password() throws Throwable {
-		System.out.println("Method4");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//input[@id='password']")).sendKeys("some password");
 	}
 
 	@When("^User clicks on the login button$")
 	public void user_clicks_on_the_login_button() throws Throwable {
-		System.out.println("Method5");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@id='submit-button']")).click();
 	}
 
 	@Then("^User should be taken to the succesful login page$")
 	public void user_should_be_taken_to_the_succesful_login_page() throws Throwable {
-		System.out.println("Method6");
+		Thread.sleep(3000);
+		WebElement askQuestionButton = driver.findElement(By.xpath("//a[contains(text(), 'Ask Question')]"));
+		Assert.assertEquals(true, askQuestionButton.isDisplayed());
 	}
 
 }

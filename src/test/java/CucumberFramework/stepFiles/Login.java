@@ -1,4 +1,4 @@
-package CucumberFramewrok.stepFiles;
+package CucumberFramework.stepFiles;
 
 import java.util.concurrent.TimeUnit;
 

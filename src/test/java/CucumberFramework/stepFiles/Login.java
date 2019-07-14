@@ -6,6 +6,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -19,10 +22,23 @@ public class Login {
 	
 	WebDriver driver;
 	
+	/**
 	@Before
-	public void setUp() {
+	public void setUpChrome() {
 		System.setProperty("webdriver.chrome.driver", "/Users/israelmesa/Desktop/ChromeDriver/chromedriver");
 		this.driver = new ChromeDriver();
+		this.driver.manage().window().maximize();
+		this.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		this.driver.manage().timeouts().setScriptTimeout(60, TimeUnit.SECONDS);
+	}
+	**/
+	
+	@Before
+	public void setUpFirefox() {
+		System.setProperty("webdriver.gecko.driver", "/Users/israelmesa/Desktop/GeckoDriver/geckodriver");
+		FirefoxOptions firefoxOptions = new FirefoxOptions();
+		firefoxOptions.addPreference("marionette", true);
+		this.driver = new FirefoxDriver(firefoxOptions);
 		this.driver.manage().window().maximize();
 		this.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		this.driver.manage().timeouts().setScriptTimeout(60, TimeUnit.SECONDS);
@@ -39,7 +55,8 @@ public class Login {
 	
 	@Given("^User navigates to stackoverflow website$")
 	public void user_navigates_to_stackoverflow_website() throws Throwable {
-	    driver.get("https://stackoverflow.com");
+//	    driver.get("https://stackoverflow.com");
+		driver.navigate().to("https://stackoverflow.com");
 	}
 
 	@And("^User clicks on the login button on homepage$")
